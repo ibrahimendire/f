@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Love</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Dokdo"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Dokdo", cursive;
+        background: linear-gradient(to bottom, #ff758c, #ff7eb3);
+        color: #fff;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        text-align: center;
+        position: relative;
+      }
+
+      .blossom {
+        display: inline-block;
+        margin: 10px;
+        position: relative;
+      }
+
+      .leaves {
+        position: relative;
+        width: 50px;
+        height: 50px;
+      }
+
+      .leaf {
+        position: absolute;
+        width: 20px;
+        height: 30px;
+        background: radial-gradient(circle, #ff758c, #d6006d);
+        border-radius: 50% 50% 0 0;
+        transform-origin: 50% 100%;
+      }
+
+      .leaf:nth-child(1) {
+        transform: rotate(0deg);
+      }
+      .leaf:nth-child(2) {
+        transform: rotate(60deg);
+      }
+      .leaf:nth-child(3) {
+        transform: rotate(120deg);
+      }
+      .leaf:nth-child(4) {
+        transform: rotate(180deg);
+      }
+      .leaf:nth-child(5) {
+        transform: rotate(240deg);
+      }
+      .leaf:nth-child(6) {
+        transform: rotate(300deg);
+      }
+
+      .core {
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      }
+
+      .text {
+        margin-top: 20px;
+        font-size: 24px;
+        line-height: 1.5;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .blossom:nth-child(1) {
+        animation: bounce 4s ease-in-out infinite;
+      }
+      .blossom:nth-child(2) {
+        animation: bounce 4s ease-in-out infinite 0.5s;
+      }
+      .blossom:nth-child(3) {
+        animation: bounce 4s ease-in-out infinite 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="blossom">
+        <div class="leaves">
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+        </div>
+        <div class="core"></div>
+      </div>
+      <div class="blossom">
+        <div class="leaves">
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+        </div>
+        <div class="core"></div>
+      </div>
+      <div class="blossom">
+        <div class="leaves">
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+          <div class="leaf"></div>
+        </div>
+        <div class="core"></div>
+      </div>
+      <div class="text"></div>
+    </div>
+    <script>
+      var messages = [
+        "እወድሻለሁ እወድሻለሁ ❤️",
+        "አንቺ የልቤ <br>🌸 ብርሃን ነሽ 🌸",
+        "ሁሌም እወድሻለሁ የእኔ<br> 💖 ፍቅር 💖",
+        "እወድሻለሁ, <br> ቆንጆዬ! 😍",
+        "ከአንቺ ጋር ያለኝ እያንዳንዱ ቀን <br> በከፍታ የተሞላ ነው 🌟",
+        "አንቺ የሕልሜ <br> እውነት ነሽ 🌹",
+        "የልቤ ንግሥት, <br>  👑",
+        "I LOVE YOU  🌼",
+      ];
+
+      var currentLine = 0;
+      var currentChar = 0;
+      var interval;
+      var delay = 0;
+      var state = 0;
+
+      window.onload = displayText;
+
+      function type() {
+        var msg = messages[currentLine].substr(0, currentChar);
+        var display = document.querySelector(".text");
+        display.innerHTML = msg;
+        if (state == 0) {
+          display.innerHTML += "_";
+          if (currentChar >= messages[currentLine].length) {
+            if (currentLine == messages.length - 1) {
+              clearInterval(interval);
+            } else {
+              state = 2;
+            }
+          } else {
+            currentChar++;
+          }
+        } else if (state == 2) {
+          delay++;
+          if (delay % 4 == 0) {
+            display.innerHTML += "_";
+            clearInterval(interval);
+            interval = setInterval(type, 400);
+          } else {
+            display.innerHTML += "\u00A0";
+            clearInterval(interval);
+            interval = setInterval(type, 150);
+          }
+          if (delay >= 16) {
+            state = 1;
+            delay = 0;
+            clearInterval(interval);
+            interval = setInterval(type, 150);
+          }
+        } else {
+          display.innerHTML += "_";
+          if (currentChar == 0) {
+            currentLine++;
+            state = 0;
+          } else {
+            currentChar--;
+          }
+        }
+      }
+
+      function displayText() {
+        interval = setInterval(type, 100);
+      }
+    </script>
+  </body>
+</html>
